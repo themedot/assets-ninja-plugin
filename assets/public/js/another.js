@@ -1,3 +1,3 @@
-;(function($){
-    alert('another js file');
-})(jQuery);
+// ;(function($){
+//     alert('another js file');
+// })(jQuery);
