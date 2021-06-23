@@ -26,6 +26,11 @@ class AssetsNinjs {
 
         add_action( 'plugins_loaded', [$this, 'load_textdomain'] );
         add_action( 'wp_enqueue_scripts', [$this, 'load_front_assets'] );
+        add_action( 'admin_enqueue_scripts',[$this,'load_admin_assets'] );
+    }
+
+    function load_admin_assets(){
+        wp_enqueue_script('asn-admin-js',ASN_ASSETS_ADMIN_DIR. "js/admin.js",['jquery'],$this->version, true);
     }
 
     function load_front_assets() {
