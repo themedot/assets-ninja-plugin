@@ -14,9 +14,14 @@ Domain Path: /languages
 
 class AssetsNinjs{
     function __construct() {
-        add_action('plugins_loaded',array($this,'assets'));
+        add_action('plugins_loaded',array($this,'load_textdomain'));
+        add_action('wp_enqueue_scripts',array($this,'load_front_assets'));
     }
-    function assets(){
+
+    function load_front_assets(){
+        wp_enqueue_script()
+    }
+    function load_textdomain(){
          load_plugin_textdomain('assetsninja',false,plugin_dir_url( __File__ )."/languages");
     }
 }
