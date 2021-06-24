@@ -31,8 +31,13 @@ class AssetsNinjs {
 
     function load_admin_assets( $hook ) {
         $_hook = get_current_screen();
-        if ( 'edit.php' == $hook && 'page' == $_hook->post_type ) {
+        // if ( 'edit.php' == $hook && ('page' == $_hook->post_type || 'book' == $_hook->post_type) ) {
+        //     wp_enqueue_script( 'asn-admin-js', ASN_ASSETS_ADMIN_DIR . "js/admin.js", ['jquery'], $this->version, true );
+
+        if ('edit-tags.php' == $hook && 'category' == $_hook->taxonomy) {
             wp_enqueue_script( 'asn-admin-js', ASN_ASSETS_ADMIN_DIR . "js/admin.js", ['jquery'], $this->version, true );
+
+        }
         }
     }
 
