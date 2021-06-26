@@ -42,9 +42,19 @@ class AssetsNinjs {
 
     function load_front_assets() {
         wp_enqueue_style( 'asn-main-css', ASN_ASSETS_PUBLIC_DIR . "css/main.css", null, $this->version );
-        wp_enqueue_script( 'asn-main-js', ASN_ASSETS_PUBLIC_DIR . "js/main.js", ['jquery'], $this->version, true );
-        wp_enqueue_script( 'asn-another-js', ASN_ASSETS_PUBLIC_DIR . "js/another.js", ['jquery'], $this->version, true );
-        wp_enqueue_script( 'asn-more-js', ASN_ASSETS_PUBLIC_DIR . "js/more.js", ['jquery'], $this->version, true );
+        // wp_enqueue_script( 'asn-main-js', ASN_ASSETS_PUBLIC_DIR . "js/main.js", ['jquery'], $this->version, true );
+        // wp_enqueue_script( 'asn-another-js', ASN_ASSETS_PUBLIC_DIR . "js/another.js", ['jquery'], $this->version, true );
+        // wp_enqueue_script( 'asn-more-js', ASN_ASSETS_PUBLIC_DIR . "js/more.js", ['jquery'], $this->version, true );
+
+        $js_file = [
+            'asn-main-js' => ['path' =>ASN_ASSETS_PUBLIC_DIR . "js/main.js",'dep' => ['jquery']],
+            'asn-another-js' => ['path' =>ASN_ASSETS_PUBLIC_DIR . "js/another.js",'dep' => ['jquery']],
+            'asn-more-js' => ['path' =>ASN_ASSETS_PUBLIC_DIR . "js/more.js",'dep' => ['jquery']],
+        ];
+        
+        foreach($js_file as $handle=>$fileinfo){
+            wp_enqueue_script($handle,$fileinfo['path'],$fileinfo['dep'],$this->version,true);
+        }
 
         $data = [
             'name' => 'Sadat Himel',
