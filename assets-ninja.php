@@ -24,9 +24,16 @@ class AssetsNinjs {
 
         $this->version = time();
 
+        add_action( 'init', [ $this, 'asn_init' ] );
+
         add_action( 'plugins_loaded', [$this, 'load_textdomain'] );
         add_action( 'wp_enqueue_scripts', [$this, 'load_front_assets'] );
         add_action( 'admin_enqueue_scripts', [$this, 'load_admin_assets'] );
+    }
+
+    function asn_init() {
+        wp_deregister_style('fontawesome-css');
+        wp_register_style('fontawesome-css','//pro.fontawesome.com/releases/v5.10.0/css/all.css');
     }
 
     function load_admin_assets( $hook ) {
@@ -42,18 +49,15 @@ class AssetsNinjs {
 
     function load_front_assets() {
         wp_enqueue_style( 'asn-main-css', ASN_ASSETS_PUBLIC_DIR . "css/main.css", null, $this->version );
-        // wp_enqueue_script( 'asn-main-js', ASN_ASSETS_PUBLIC_DIR . "js/main.js", ['jquery'], $this->version, true );
-        // wp_enqueue_script( 'asn-another-js', ASN_ASSETS_PUBLIC_DIR . "js/another.js", ['jquery'], $this->version, true );
-        // wp_enqueue_script( 'asn-more-js', ASN_ASSETS_PUBLIC_DIR . "js/more.js", ['jquery'], $this->version, true );
 
         $js_file = [
-            'asn-main-js' => ['path' =>ASN_ASSETS_PUBLIC_DIR . "js/main.js",'dep' => ['jquery']],
-            'asn-another-js' => ['path' =>ASN_ASSETS_PUBLIC_DIR . "js/another.js",'dep' => ['jquery']],
-            'asn-more-js' => ['path' =>ASN_ASSETS_PUBLIC_DIR . "js/more.js",'dep' => ['jquery']],
+            'asn-main-js'    => ['path' => ASN_ASSETS_PUBLIC_DIR . "js/main.js", 'dep' => ['jquery']],
+            'asn-another-js' => ['path' => ASN_ASSETS_PUBLIC_DIR . "js/another.js", 'dep' => ['jquery']],
+            'asn-more-js'    => ['path' => ASN_ASSETS_PUBLIC_DIR . "js/more.js", 'dep' => ['jquery']],
         ];
-        
-        foreach($js_file as $handle=>$fileinfo){
-            wp_enqueue_script($handle,$fileinfo['path'],$fileinfo['dep'],$this->version,true);
+
+        foreach ( $js_file as $handle => $fileinfo ) {
+            wp_enqueue_script( $handle, $fileinfo['path'], $fileinfo['dep'], $this->version, true );
         }
 
         $data = [
